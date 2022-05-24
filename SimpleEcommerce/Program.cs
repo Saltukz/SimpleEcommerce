@@ -31,13 +31,32 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+//i add this middleware to handle 404 easly 
+app.Use(async (context, next) =>
+{
+    await next();
+    if (context.Response.StatusCode == 404)
+    {
+        context.Request.Path = "/";
+        await next();
+    }
+});
+
 app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthorization();
 
+
+app.MapControllerRoute(name: "blog",
+                pattern: "{cname}",
+                defaults: new { controller = "Product", action = "List" });
+
 app.MapControllerRoute(
+
+
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 

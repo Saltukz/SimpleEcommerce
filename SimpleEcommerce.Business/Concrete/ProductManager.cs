@@ -35,9 +35,19 @@ namespace SimpleEcommerce.Business.Concrete
            return _unitOfWork.Products.GetAll();    
         }
 
+        public List<Product> GetAllbyCategoryName(string cname)
+        {
+            return _unitOfWork.Products.GetAllbyCategoryName(cname);
+        }
+
         public Product GetById(int id)
         {
             return _unitOfWork.Products.GetById(id);
+        }
+
+        public List<Product> GetFilteredProducts(string cName, string araliklow,string aralikhigh)
+        {
+            return _unitOfWork.Products.GetFilteredProducts(cName, araliklow,aralikhigh);
         }
 
         public void Update(Product entity)

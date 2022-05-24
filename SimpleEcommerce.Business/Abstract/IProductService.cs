@@ -16,5 +16,7 @@ namespace SimpleEcommerce.Business.Abstract
         void Update(Product entity);
 
         void Delete(Product entity);
+        List<Product> GetAllbyCategoryName(string cname);
+        List<Product> GetFilteredProducts(string cName, string araliklow,string aralikhigh);
     }
 }

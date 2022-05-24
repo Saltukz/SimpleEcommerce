@@ -9,5 +9,7 @@ namespace SimpleEcommerce.Data.Abstract
 {
     public interface IProductRepository : IRepository<Product>
     {
+        List<Product> GetAllbyCategoryName(string cname);
+        List<Product> GetFilteredProducts(string cName, string araliklow,string aralikhigh);
     }
 }

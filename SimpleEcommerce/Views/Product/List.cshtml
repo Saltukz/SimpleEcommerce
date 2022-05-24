@@ -1,0 +1,73 @@
+﻿@model ProductViewModel
+@{
+    var products = Model.products;
+    var count = Model.Count;
+
+}
+
+<div class="row">
+  <div class="col-6 col-md-4"><div class="card">
+	  <article class="card-group-item">
+		<header class="card-header">
+			<h6 class="title">Range input </h6>
+		</header>
+		<form asp-action="Filter" asp-controller="Product" method="post">
+		<input type="hidden" asp-for="cname" />
+		<div class="filter-content">
+			<div class="card-body">
+			<div class="form-row">
+			<div class="form-group col-md-6">
+			
+			  <label>Min</label>
+			  <input asp-for=araliklow type="number" class="form-control" id="inputEmail4" placeholder="0">
+			</div>
+			<div class="form-group col-md-6 text-right">
+			  <label>Max</label>
+			  <input asp-for=aralikhigh type="number" class="form-control" placeholder="1,0000">
+			</div>
+			</div>
+				
+			</div> <!-- card-body.// -->
+		 <button type="submit">Getir</button>
+		</div>
+	</form>
+	</article>
+<!-- card-group-item.// -->
+</div> <!-- card.// -->
+</div>
+  <div class="col-12 col-md-8">
+
+    <p class="h3">Kateroriye ait @count adet ürün bulundu.</p>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Tax</th>
+    </tr>
+  </thead>
+  <tbody>
+        @foreach(var product in products)
+        {
+            <tr>
+                <th scope="row">1</th>
+                <td>@product.Name</td>
+                <td>@product.Price</td> 
+                <td>@product.Tax</td> 
+            </tr>
+        }
+        
+   
+  </tbody>
+</table>
+
+
+
+
+
+
+</div>
+  
+</div>
+
