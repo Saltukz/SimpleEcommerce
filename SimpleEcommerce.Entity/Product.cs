@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SimpleEcommerce.Entity
 {
-    [Index("Name", Name = "UQ__Products__737584F60A06127F", IsUnique = true)]
+    [Index("Name", Name = "UQ__Products__737584F665D8BD99", IsUnique = true)]
     public partial class Product
     {
         [Key]
@@ -23,6 +23,8 @@ namespace SimpleEcommerce.Entity
         public decimal Tax { get; set; }
         [Column("CategoryID")]
         public int? CategoryId { get; set; }
+        [Required]
+        public bool? IsActive { get; set; }
 
         [ForeignKey("CategoryId")]
         [InverseProperty("Products")]

@@ -25,15 +25,15 @@
                     if(category.UpperCategory == null)
                     {
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                             <a asp-action="List" asp-controller="Category" asp-route-pcode="@category.Name">@category.Name</a>
+                            <a class="nav-link dropdown-toggle" asp-action="List" asp-controller="Product" asp-route-cname="@category.Name" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             @category.Name
                             </a>
                          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 @foreach(var subcategory in categories)
                                 {
                                     @if(subcategory.UpperCategory == category)
                                     {
-                                        <a asp-action="List" asp-controller="Category" asp-route-pcode="@subcategory.Name">@subcategory.Name</a>
+                                        <a asp-action="List" asp-controller="Product" asp-route-cname="@subcategory.Name">@subcategory.Name</a>
                                     }
                                 }
                             </div>

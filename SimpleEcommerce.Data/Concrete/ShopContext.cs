@@ -29,15 +29,17 @@ namespace SimpleEcommerce.Data.Concrete
                 entity.HasOne(d => d.UpperCategory)
                     .WithMany(p => p.InverseUpperCategory)
                     .HasForeignKey(d => d.UpperCategoryId)
-                    .HasConstraintName("FK__Categorie__Upper__25869641");
+                    .HasConstraintName("FK__Categorie__Upper__267ABA7A");
             });
 
             modelBuilder.Entity<Product>(entity =>
             {
+                entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
+
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.CategoryId)
-                    .HasConstraintName("FK__Products__Catego__29572725");
+                    .HasConstraintName("FK__Products__Catego__2A4B4B5E");
             });
 
             OnModelCreatingPartial(modelBuilder);

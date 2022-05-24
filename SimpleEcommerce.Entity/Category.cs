@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace SimpleEcommerce.Entity
 {
-    [Index("Name", Name = "UQ__Categori__737584F699AB95CE", IsUnique = true)]
+    [Index("Name", Name = "UQ__Categori__737584F652519EF4", IsUnique = true)]
+    [Index("SeoCode", Name = "UQ__Categori__A3953AC4B4E2A2DA", IsUnique = true)]
     public partial class Category
     {
         public Category()
@@ -23,6 +24,8 @@ namespace SimpleEcommerce.Entity
         public int CategoryId { get; set; }
         [StringLength(100)]
         public string Name { get; set; } = null!;
+        [StringLength(100)]
+        public string? SeoCode { get; set; }
         public string? Description { get; set; }
         [Column("UpperCategoryID")]
         public int? UpperCategoryId { get; set; }

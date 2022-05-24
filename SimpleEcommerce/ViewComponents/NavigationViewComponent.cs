@@ -17,9 +17,9 @@ namespace SimpleEcommerce.ViewComponents
 
         public IViewComponentResult Invoke()
         {
-            
+            // one to many yerine self references tercih ettim databaseyi iki tabloyu join etme yükünden kurtardım
+            // fakat view kısmında iç içe iki döngü kullanmak zorunda kaldım şu an çok mantıklı gelmese de çok yüksek sayıda kategori olmayacagını varsayarak devam ediyorum.
             var categories = _categoryService.GetAll();
-         
             var layoutModel = new LayoutModel()
             {
                 Categories = categories,
