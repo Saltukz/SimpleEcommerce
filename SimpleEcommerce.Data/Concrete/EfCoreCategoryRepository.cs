@@ -17,7 +17,12 @@ namespace SimpleEcommerce.Data.Concrete
 
         public ShopContext ShopContext
         {
-            get { return context as ShopContext }
+            get { return context as ShopContext; }
+        }
+
+        public List<Category> GetAllWithSubs()
+        {
+            return ShopContext.Categories.ToList();
         }
     }
 }

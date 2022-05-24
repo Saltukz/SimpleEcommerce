@@ -1,4 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using SimpleEcommerce.Business.Abstract;
+using SimpleEcommerce.Business.Concrete;
+using SimpleEcommerce.Data.Abstract;
 using SimpleEcommerce.Data.Concrete;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +12,10 @@ builder.Services.AddDbContext<ShopContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnectionString"));
 });
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<ICategoryService, CategoryManager>();
+builder.Services.AddScoped<IProductService, ProductManager>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

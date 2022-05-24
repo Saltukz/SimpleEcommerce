@@ -14,6 +14,6 @@ namespace SimpleEcommerce.Data.Abstract
 
         void Update(T entity);
 
-        void Delete(T entity;
+        void Delete(T entity);
      }
 }

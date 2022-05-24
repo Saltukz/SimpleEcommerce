@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleEcommerce.Data\SimpleEcommerce.Data.csproj" />
+    <ProjectReference Include="..\SimpleEcommerce.Entity\SimpleEcommerce.Entity.csproj" />
+  </ItemGroup>
+
+</Project>
