@@ -6,9 +6,9 @@ namespace SimpleEcommerce.Models
     {
         public string cname { get; set; }
 
-        public string araliklow { get; set; }
+        public string araliklow { get; set; } = null!;
 
-        public string aralikhigh{ get; set; }
+        public string aralikhigh{ get; set; } = null!;
 
         public int Count { get; set; }
         public List<Product> products { get; set; } = null!;

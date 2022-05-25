@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using SimpleEcommerce.Business.Abstract;
 using SimpleEcommerce.Business.Concrete;
@@ -22,6 +23,7 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -43,14 +45,25 @@ app.Use(async (context, next) =>
     }
 });
 
+
+
 app.UseStaticFiles();
 
 app.UseRouting();
 
+
+
 app.UseAuthorization();
 
+app.MapControllerRoute(name: "categorydelete",
+                pattern: "/Category/ekle",
+                defaults: new { controller = "Category", action = "Add" });
 
-app.MapControllerRoute(name: "blog",
+app.MapControllerRoute(name: "categoryedit",
+                pattern: "/Category/edit/{id}",
+                defaults: new { controller = "Category", action = "Edit" });
+
+app.MapControllerRoute(name: "productlist",
                 pattern: "{cname}",
                 defaults: new { controller = "Product", action = "List" });
 

@@ -2,6 +2,7 @@
 @{
     var products = Model.products;
     var count = Model.Count;
+	var cname  = Model.cname;
 
 }
 
@@ -45,16 +46,18 @@
       <th scope="col">Name</th>
       <th scope="col">Price</th>
       <th scope="col">Tax</th>
+	  <th scope="col">Category</th>
     </tr>
   </thead>
   <tbody>
         @foreach(var product in products)
         {
             <tr>
-                <th scope="row">1</th>
+                <th scope="row">@product.ProductId</th>
                 <td>@product.Name</td>
                 <td>@product.Price</td> 
                 <td>@product.Tax</td> 
+				<td>@product.Category.Name</td> 
             </tr>
         }
         

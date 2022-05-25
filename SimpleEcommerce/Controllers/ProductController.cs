@@ -18,11 +18,23 @@ namespace SimpleEcommerce.Controllers
         }
 
       
-        public IActionResult List(string cName, ProductViewModel outmodel)
+        public IActionResult List(string cName, ProductViewModel? outmodel)
         {
             //modelin içi dolu geldi ise demek ki filterden geliyor.
             if(outmodel.araliklow != null)
             {
+
+                //null durumunda fiyatları min max ayarlıyor
+                if (outmodel.araliklow == null)
+                {
+                    outmodel.araliklow = "0";
+                }
+
+                if (outmodel.aralikhigh == null)
+                {
+                    outmodel.aralikhigh = "10000000";
+                }
+
 
                 List<Product> productsnew = _productService.GetFilteredProducts(cName, outmodel.araliklow, outmodel.aralikhigh);
 
@@ -76,7 +88,7 @@ namespace SimpleEcommerce.Controllers
 
 
         [HttpPost]
-        public IActionResult Filter(string cName,string araliklow,string aralikhigh)
+        public IActionResult Filter(string cName,string? araliklow,string? aralikhigh)
         {
             if (ModelState.IsValid)
             {
@@ -85,8 +97,19 @@ namespace SimpleEcommerce.Controllers
                 {
                     return NotFound();
                 }
+                //null durumunda fiyatları min max ayarlıyor
+                if (araliklow == null)
+                {
+                    araliklow = "0";
+                }
 
-               
+                if (aralikhigh == null)
+                {
+                    aralikhigh = "10000000";
+                }
+
+
+
 
                 List<Product> products = _productService.GetFilteredProducts(cName,araliklow,aralikhigh);
 
@@ -114,7 +137,7 @@ namespace SimpleEcommerce.Controllers
 
             }
 
-            return RedirectToAction("List",ModelState);
+            return RedirectToAction("List",cName);
            
         }
     }

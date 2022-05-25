@@ -1,0 +1,64 @@
+﻿@model CategoryViewModel
+@{
+}
+
+<div class="row">
+  <div class="col-6 col-md-4"><div class="card">
+	  <article class="card-group-item">
+		<header class="card-header">
+			<h6 class="title">Range input </h6>
+		</header>
+	<a href="/Category/ekle">ekle</a>
+	</article>
+<!-- card-group-item.// -->
+</div> <!-- card.// -->
+</div>
+  <div class="col-12 col-md-8">
+
+    <p class="h3">Toplam @Model.Count adet kategori bulundu.</p>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Higher Category</th>
+
+    </tr>
+  </thead>
+  <tbody>
+        @foreach(var category in Model.categories)
+        {
+            <tr>
+                <th scope="row">@category.CategoryId</th>
+                <td>@category.Name</td>
+                <td>@category.Description</td>  
+                 @if(@category.UpperCategoryId != null)
+                 {
+                            <td>@category.UpperCategory.Name</td>
+                        }
+                        else
+                        {
+                             <td>Null</td>
+                        }
+
+         
+                <td><a href="/Category/edit/@category.CategoryId">Edit</a></td>
+                    
+          
+            </tr>
+        }
+        
+   
+  </tbody>
+</table>
+
+
+
+
+
+
+</div>
+  
+</div>
+

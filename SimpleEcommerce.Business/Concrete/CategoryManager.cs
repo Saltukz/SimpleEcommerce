@@ -30,6 +30,8 @@ namespace SimpleEcommerce.Business.Concrete
             _unitOfWork.Save();
         }
 
+    
+
         public List<Category> GetAll()
         {
             return _unitOfWork.Categories.GetAll();

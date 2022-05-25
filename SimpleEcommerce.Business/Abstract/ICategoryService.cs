@@ -18,5 +18,6 @@ namespace SimpleEcommerce.Business.Abstract
         void Update(Category entity);
 
         void Delete(Category entity);
+  
     }
 }
