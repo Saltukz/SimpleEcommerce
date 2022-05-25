@@ -63,6 +63,18 @@ app.MapControllerRoute(name: "categoryedit",
                 pattern: "/Category/edit/{id}",
                 defaults: new { controller = "Category", action = "Edit" });
 
+app.MapControllerRoute(name: "productedit",
+                pattern: "/Product/edit/{id}",
+                defaults: new { controller = "Product", action = "Edit" });
+
+app.MapControllerRoute(name: "productadd",
+                pattern: "/Product/Ekle",
+                defaults: new { controller = "Product", action = "Add" });
+
+app.MapControllerRoute(name: "productlist",
+                pattern: "/Product/Index",
+                defaults: new { controller = "Product", action = "Index" });
+
 app.MapControllerRoute(name: "productlist",
                 pattern: "{cname}",
                 defaults: new { controller = "Product", action = "List" });

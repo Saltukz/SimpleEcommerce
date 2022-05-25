@@ -26,6 +26,11 @@ namespace SimpleEcommerce.Data.Concrete
             return ShopContext.Products.Include(c=>c.Category).Where(c => c.Category.SeoCode == cname || c.Category.UpperCategory.SeoCode == cname).ToList();
         }
 
+        public List<Product> GetAllIncludeCategories()
+        {
+            return ShopContext.Products.Include(c=>c.Category).ToList();
+        }
+
         public List<Product> GetFilteredProducts(string cName, string araliklow,string aralikhigh)
         {
             var aralik1 = Decimal.Parse(araliklow);

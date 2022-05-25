@@ -11,5 +11,6 @@ namespace SimpleEcommerce.Data.Abstract
     {
         List<Product> GetAllbyCategoryName(string cname);
         List<Product> GetFilteredProducts(string cName, string araliklow,string aralikhigh);
+        List<Product> GetAllIncludeCategories();
     }
 }

@@ -67,22 +67,48 @@ namespace SimpleEcommerce.Controllers
         [HttpPost]
         public IActionResult Edit(CategoryViewModel model)
         {
-            var category = _categoryService.GetById((int)model.CategoryID);
-            if(category == null)
+            if (ModelState.IsValid)
             {
-                TempData["message"] = "Kategori bulunamadı.";
+                var category = _categoryService.GetById((int)model.CategoryID);
+                if (category == null)
+                {
+                    TempData["message"] = "Kategori bulunamadı.";
+                    return Redirect("/Category/Index");
+                }
+
+
+                category.Name = model.Name;
+                category.Description = model.Description;
+                category.SeoCode = UrlHelper.FriendlyUrl(model.Name);
+                category.UpperCategoryId = model.CategoryUpperID;
+                _categoryService.Update(category);
+
+
+
                 return Redirect("/Category/Index");
             }
 
+
             CategoryViewModel categoryViewModel = new CategoryViewModel
             {
-                CategoryID = category.CategoryId,
-                Name = category.Name,
-                Description = category.Description,
+                CategoryID = model.CategoryID,
+                Name = model.Name,
+                Description = model.Description,
 
             };
-          
-            return View("/Category/Index");
+
+            if (model.CategoryUpperID != null)
+            {
+                categoryViewModel.CategoryUpperID = (int)model.CategoryUpperID;
+            }
+
+            //üst kategorileri selectlistle seçtireceğim
+            var categories = _categoryService.GetAll().Where(x => x.UpperCategory == null).ToList();
+
+            categoryViewModel.categories = categories;
+
+
+            return View(model);
         }
 
 

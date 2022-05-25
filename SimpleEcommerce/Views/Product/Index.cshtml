@@ -1,0 +1,56 @@
+﻿@model ProductViewModel
+@{
+}
+
+<div class="row">
+  <div class="col-6 col-md-4"><div class="card">
+	  <article class="card-group-item">
+		<header class="card-header">
+			<h6 class="title">Range input </h6>
+		</header>
+	<a href="/Product/ekle">ekle</a>
+	</article>
+<!-- card-group-item.// -->
+</div> <!-- card.// -->
+</div>
+  <div class="col-12 col-md-8">
+
+   
+    <p class="h3">Toplam @Model.Count adet ürün bulundu.</p>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Tax</th>
+      <th scope="col">Category</th>
+
+    </tr>
+  </thead>
+  <tbody>
+         @foreach(var product in @Model.products)
+        {
+            <tr>
+                <th scope="row">@product.ProductId</th>
+                <td>@product.Name</td>
+                <td>@product.Price</td> 
+                <td>@product.Tax</td> 
+				<td>@product.Category.Name</td> 
+                <td><a href="/Product/edit/@product.ProductId">Edit</a></td>
+            </tr>
+        }
+        
+   
+  </tbody>
+</table>
+
+
+
+
+
+
+</div>
+  
+</div>
+

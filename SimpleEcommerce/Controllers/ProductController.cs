@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using SimpleEcommerce.Business.Abstract;
 using SimpleEcommerce.Entity;
+using SimpleEcommerce.Helpers;
 using SimpleEcommerce.Models;
 
 namespace SimpleEcommerce.Controllers
@@ -10,14 +11,34 @@ namespace SimpleEcommerce.Controllers
     {
         private readonly IProductService _productService;
         private readonly ILogger<ProductController> _logger;
-
-        public ProductController(IProductService productService, ILogger<ProductController> logger)
+        private readonly ICategoryService _categoryService;
+        public ProductController(IProductService productService, ILogger<ProductController> logger,ICategoryService categoryService)
         {
             _productService = productService;
             _logger = logger;
+            _categoryService = categoryService;
         }
 
-      
+
+        public IActionResult Index()
+        {
+            //join işlemi ile kategori isimlerini getirmek istiyorum
+            List<Product> products = _productService.GetAllIncludeCategories();
+
+            if (products.Count == 0)
+            {
+                TempData["message"] = "Hiç kategori bulunamadı.";
+            }
+
+            var model = new ProductViewModel
+            {
+                products = products,
+                Count = products.Count()
+            };
+            return View(model);
+        }
+
+
         public IActionResult List(string cName, ProductViewModel? outmodel)
         {
             //modelin içi dolu geldi ise demek ki filterden geliyor.
@@ -139,6 +160,130 @@ namespace SimpleEcommerce.Controllers
 
             return RedirectToAction("List",cName);
            
+        }
+
+
+
+        public IActionResult Add()
+        {
+            //üst kategorileri selectlistle seçtireceğim
+            var categories = _categoryService.GetAll();
+
+            ProductModel model = new ProductModel
+            {
+                Categories = categories
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Add(ProductModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                
+                Product product = new Product
+                {
+                    Name = model.Name,
+                    Price = model.Price,
+                    Tax = model.Tax,
+                    CategoryId = model.CategoryID
+                };
+           
+                _productService.Create(product);
+
+                return Redirect("/Product/Index");
+            }
+
+            //valid olmama durumunda modelstateyi geri gönderiyorum.
+            var categories = _categoryService.GetAll();
+            ProductModel newmodel = new ProductModel
+            {
+                Categories = categories
+            };
+
+            return View(newmodel);
+        }
+
+
+
+
+
+        public IActionResult Edit(int id)
+        {
+            var product = _productService.GetById(id);
+            if (product == null)
+            {
+                TempData["message"] = "Kategori bulunamadı.";
+                return Redirect("/Category/Index");
+            }
+
+            ProductModel productModel = new ProductModel
+            {
+               
+                Name = product.Name,
+                Price = product.Price,
+                Tax= product.Tax,
+                ProductId = product.ProductId,
+                CategoryID = (int)product.CategoryId
+
+            };
+
+            //üst kategorileri selectlistle seçtireceğim
+            var categories = _categoryService.GetAll();
+
+            productModel.Categories = categories;
+
+            return View(productModel);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(ProductModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var product = _productService.GetById((int)model.ProductId);
+                if (product == null)
+                {
+                    TempData["message"] = "Kategori bulunamadı.";
+                    return Redirect("/Product/Index");
+                }
+
+
+                product.Name = model.Name;
+                product.Price = model.Price;
+                product.Tax = model.Tax;
+                product.CategoryId = model.CategoryID;
+                _productService.Update(product);
+
+
+
+                return Redirect("/Product/Index");
+            }
+
+
+            ProductModel productModel = new ProductModel
+            {
+
+                Name = model.Name,
+                Price = model.Price,
+                Tax = model.Tax,
+                ProductId = model.ProductId,
+                CategoryID = (int)model.CategoryID
+
+            };
+
+
+           
+
+            //üst kategorileri selectlistle seçtireceğim
+            var categories = _categoryService.GetAll();
+
+            productModel.Categories = categories;
+
+
+            return View(productModel);
         }
     }
 }

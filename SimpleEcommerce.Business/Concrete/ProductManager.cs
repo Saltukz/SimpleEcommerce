@@ -40,6 +40,11 @@ namespace SimpleEcommerce.Business.Concrete
             return _unitOfWork.Products.GetAllbyCategoryName(cname);
         }
 
+        public List<Product> GetAllIncludeCategories()
+        {
+            return _unitOfWork.Products.GetAllIncludeCategories();
+        }
+
         public Product GetById(int id)
         {
             return _unitOfWork.Products.GetById(id);
